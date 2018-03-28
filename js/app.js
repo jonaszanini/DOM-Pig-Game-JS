@@ -10,18 +10,31 @@ GAME RULES:
 */
 
 
-var scores, roundScore, activePlayer, dice;
+var scores, roundScore, activePlayer;
 
 scores = [0,0];
 roundScore = 0;
 activePlayer = 0;
 
-dice = Math.floor(Math.random() * 6) + 1;
+document.querySelector('.dice').style.display = 'none';
 
-console.log(dice);
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
 
 
-// if (document.querySelector('current') != null){
-document.getElementById('current-0').textContent = dice;
-// }
-//document.querySelectorAll('#current-' + activePlayer).textContent = dice;
+document.querySelector('.btn-roll').addEventListener('click', function(){
+    
+    var dice = Math.floor(Math.random() * 6) + 1;
+
+    document.querySelector('.dice').style.display = 'block';
+    document.querySelector('.dice').src = 'images/dice-'+ dice +'.png';
+
+    if(dice !== 1){
+        roundScore += dice;
+    }
+    else{
+        roundScore = 0;
+    }
+})
