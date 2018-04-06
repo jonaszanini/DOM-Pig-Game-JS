@@ -33,8 +33,37 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
     if(dice !== 1){
         roundScore += dice;
+        document.getElementById('current-' + activePlayer).textContent = roundScore;
     }
     else{
-        roundScore = 0;
+        nextPlayer();
     }
 })
+
+
+document.querySelector('.btn-hold').addEventListener('click' , function(){
+    
+    scores[activePlayer] += roundScore;
+    document.getElementById('score-' + activePlayer).textContent = scores[activePlayer]
+
+    if (scores[activePlayer] >= 5){
+        document.getElementById('name-' + activePlayer).textContent = 'Winner!'
+        document.querySelector('.dice').style.display = 'none';
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+    }
+    else{
+        nextPlayer();
+    }
+})
+
+
+function nextPlayer(){
+    roundScore = 0;
+    document.getElementById('current-' + activePlayer).textContent = roundScore
+
+    document.querySelector('.player-'+ activePlayer +'-panel').classList.remove('active');
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    document.querySelector('.player-'+ activePlayer +'-panel').classList.add('active');
+    document.querySelector('.dice').style.display = 'none';
+}
